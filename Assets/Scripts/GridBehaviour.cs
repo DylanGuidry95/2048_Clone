@@ -78,14 +78,24 @@ public class GridBehaviour : MonoBehaviour
         }        
     }
 
-    public bool CheckVacancy(Vector3 position)
+    public bool CheckBounds(Vector3 position)
     {        
         foreach (var space in Spaces)
         {
             if(space.transform.position == position)
-                return PlaySpaces[space] == null;
+                return true;
         }
         return false;
+    }
+
+    public NodeBehaviour GetNode(Vector3 position)
+    {
+        foreach (var node in Nodes)
+        {
+            if(node.transform.position == position)
+                return node.GetComponent<NodeBehaviour>();
+        }
+        return null;
     }
 
     public void CheckSpaces()
@@ -97,11 +107,14 @@ public class GridBehaviour : MonoBehaviour
             {
                 if(node.transform.position == space.transform.position)
                 {
-                    PlaySpaces[space] = node;
-                    hasNode = true;
+                    if(PlaySpaces[space] == null)
+                    {
+                        PlaySpaces[space] = node;
+                        hasNode = true;
+                    }                    
                 }
             }
             PlaySpaces[space] = !hasNode ? null : PlaySpaces[space];
-        }        
+        }
     }
 }

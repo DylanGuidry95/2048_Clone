@@ -12,12 +12,13 @@ public class NodeBehaviour : MonoBehaviour
 
     private void Awake() 
     {        
-        FaceValue = StartingValue[Random.Range(0,4)];        
+        FaceValue = StartingValue[Random.Range(0,4)];
+        ValueView = GetComponentInChildren<Text>();
         ValueView.text = FaceValue.ToString();
     }
 
     bool CompareNode(NodeBehaviour node)
     {        
-        return node.FaceValue == this.FaceValue;     
+        return node.FaceValue == this.FaceValue;
     }
 }

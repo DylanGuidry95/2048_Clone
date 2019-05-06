@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(NodeBehaviour))]
 public class MovementBehaviour : MonoBehaviour
 {    
     private GridBehaviour GridRef;
@@ -14,29 +13,30 @@ public class MovementBehaviour : MonoBehaviour
     private void Update() 
     {
         if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Slide(new Vector3(0,-2,0));
+        {                           
+            Move(new Vector3(0,-1,0));
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Slide(new Vector3(0,2,0));
+        {            
+            Move(new Vector3(0,1,0));
         }
         else if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Slide(new Vector3(-2,0,0));
+        {            
+            Move(new Vector3(-1,0,0));
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            Slide(new Vector3(2,0,0));
+        {        
+            Move(new Vector3(1,0,0));
         }
     }
 
-    void Slide(Vector3 direction)
+    void Move(Vector3 direction)
     {
-        while(GridRef.CheckVacancy(transform.position + direction))
+        foreach (var node in GridRef.Nodes)
         {
-            transform.position += direction;
+            if(GridRef.CheckBounds(node.transform.position + direction))
+                node.transform.position += direction;
+            GridRef.CheckSpaces();
         }
-        GridRef.CheckSpaces();
     }
 }

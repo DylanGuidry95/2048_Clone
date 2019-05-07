@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridBehaviour : MonoBehaviour
-{
-    public List<NodeBehaviour> Nodes;
-    public List<GameObject> Spaces;
-    public Dictionary<GameObject, NodeBehaviour> PlaySpaces;    
-
-    public GameObject NodePrefab;
+{    
+    public List<CellBehaviour> Cells;    
 
     public enum EDimensions
     {
@@ -19,102 +15,59 @@ public class GridBehaviour : MonoBehaviour
 
     private void Awake() 
     {
-        Nodes = new List<NodeBehaviour>();
-        PlaySpaces = new Dictionary<GameObject, NodeBehaviour>();
+        Cells = new List<CellBehaviour>();
         for(int x = 0; x < (int)GridSize; x++)
         {
             for(int y = 0; y < (int)GridSize; y++)
             {
                 var space = new GameObject();
                 space.transform.position = new Vector2(x,y) * 2;
-                space.name = (PlaySpaces.Count + 1).ToString();
-                Spaces.Add(space);
-                PlaySpaces.Add(space, null);
+                space.name = (Cells.Count + 1).ToString();
+                space.AddComponent(typeof(CellBehaviour));
+                Cells.Add(space.GetComponent<CellBehaviour>());                
             }            
         }
-        Restart();
+        Restart(0);
     }
 
-    void Restart()
-    {
-        foreach (var node in Nodes)
+    void Restart(int placed)
+    {   
+        if(placed == 0)
         {
-            Destroy(node.gameObject);
-        }
-
-        Nodes = new List<NodeBehaviour>();        
-
-        int placeOne, placeTwo;
-        placeOne = Random.Range(0, PlaySpaces.Count - 1);                    
-        var newNodeOne = GameObject.Instantiate(NodePrefab);
-        newNodeOne.transform.position = Spaces[placeOne].transform.position;
-        Nodes.Add(newNodeOne.GetComponent<NodeBehaviour>());
-
-        placeTwo = Random.Range(0, PlaySpaces.Count - 1);
-        if(placeOne == placeTwo)
-            placeTwo = placeOne + 1 > PlaySpaces.Count - 1 ? placeOne - 1 : placeOne + 1;
-        var newNodeTwo = GameObject.Instantiate(NodePrefab);
-        newNodeTwo.transform.position = Spaces[placeTwo].transform.position;
-        Nodes.Add(newNodeTwo.GetComponent<NodeBehaviour>());
-
-        PlaySpaces[Spaces[placeOne]] = newNodeOne.GetComponent<NodeBehaviour>();
-        PlaySpaces[Spaces[placeTwo]] = newNodeTwo.GetComponent<NodeBehaviour>();
+            foreach (var cell in Cells)
+            {                
+                cell.ClearCell();
+            }
+        }    
+        if(placed >= 2)
+            return;
+        int placeOne = 0;         
+        do
+        {
+            placeOne = Random.Range(0, Cells.Count);
+        } while (Cells[placeOne].SpawnNode() == 0);
+        Restart(placed + 1);
     }    
 
     private void Update() 
     {
         if(Input.GetKeyDown(KeyCode.Space))
-            Restart();    
+            Restart(0);    
     }
 
     private void OnDrawGizmos() 
     {
-        if(PlaySpaces == null)
+        if(Cells.Count == 0)
             return;
-        foreach (var space in Spaces)
+        Gizmos.color = new Color(1,1,1,0.25f);
+        foreach (var cells in Cells)
         {
-            Gizmos.color = new Color(1,1,1,0.2f);
-            Gizmos.DrawCube(space.transform.position, new Vector3(1,1,1));
-        }        
+            Gizmos.DrawCube(cells.gameObject.transform.position, new Vector3(1,1,1));
+        }
     }
 
     public bool CheckBounds(Vector3 position)
     {        
-        foreach (var space in Spaces)
-        {
-            if(space.transform.position == position)
-                return true;
-        }
-        return false;
-    }
-
-    public NodeBehaviour GetNode(Vector3 position)
-    {
-        foreach (var node in Nodes)
-        {
-            if(node.transform.position == position)
-                return node.GetComponent<NodeBehaviour>();
-        }
-        return null;
-    }
-
-    public void CheckSpaces()
-    {
-        foreach (var space in Spaces)
-        {
-            bool hasNode = false;
-            foreach (var node in Nodes)
-            {
-                if(node.transform.position == space.transform.position)
-                {
-                    if(PlaySpaces[space] == null)
-                    {
-                        PlaySpaces[space] = node;
-                        hasNode = true;
-                    }                    
-                }
-            }
-            PlaySpaces[space] = !hasNode ? null : PlaySpaces[space];
-        }
+        return true;
     }
 }

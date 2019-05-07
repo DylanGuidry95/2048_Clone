@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CellBehaviour : MonoBehaviour
 {
-    struct Neighbors
+    public struct Neighbors
     {
         public CellBehaviour Left, Right, Top, Bottom;
         public CellBehaviour CheckNextVacancy(int direction)
@@ -34,6 +34,8 @@ public class CellBehaviour : MonoBehaviour
     public Vector3 Position;
     private NodeBehaviour Node;   
 
+    public Neighbors AdjacentNodes;
+
     public bool IsVacant
     {
         get
@@ -44,29 +46,35 @@ public class CellBehaviour : MonoBehaviour
 
    public int TryMergeNodes(NodeBehaviour node)
    {
-        if(IsVacant)
-            return -1;
         if(Node.FaceValue == node.FaceValue)
         {
-            var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
-            newNode.GetComponent<NodeBehaviour>().FaceValue = Node.FaceValue + node.FaceValue;            
+            int NewValue = Node.FaceValue + node.FaceValue;
             Destroy(Node.gameObject);
-            Destroy(node.gameObject);            
+            Destroy(node.gameObject);
+            var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+            newNode.GetComponent<NodeBehaviour>().UpdateFaceValue(NewValue);
+            Node = newNode.GetComponent<NodeBehaviour>();            
             return 1;
         }
         return 0;
    }
 
-   public int MoveNodeInto(NodeBehaviour node)
+   public int MoveNodeInto(CellBehaviour cell)
    {
         if(IsVacant)
         {
-            Node = node;
-            Node.transform.position = this.transform.position;
+            Node = cell.Node;
+            cell.Node = null;
+            Node.transform.position = this.transform.position;            
             return 1;
         }
-        return TryMergeNodes(node);
-   }
+        else if(TryMergeNodes(cell.Node) == 1)
+        {
+            cell.Node = null;
+            return -1;
+        }
+        return 0;
+   }   
 
    public int SpawnNode()
    {

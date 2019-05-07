@@ -2,35 +2,80 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GridBehaviour))]
 public class MovementBehaviour : MonoBehaviour
 {        
+    enum EDirections
+    {
+        Left, Right, Up, Down
+    }
+
+    public GridBehaviour GridRef;
+
     private void Awake() 
     {
-             
+        GridRef = GetComponent<GridBehaviour>();
     }
 
     private void Update() 
     {
         if(Input.GetKeyDown(KeyCode.DownArrow))
         {                           
-            Move(new Vector3(0,-2,0));
+            Move(EDirections.Down);
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow))
         {            
-            Move(new Vector3(0,2,0));
+            Move(EDirections.Up);
         }
         else if(Input.GetKeyDown(KeyCode.LeftArrow))
         {            
-            Move(new Vector3(-2,0,0));
+            Move(EDirections.Left);
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow))
         {        
-            Move(new Vector3(2,0,0));
+            Move(EDirections.Right);
         }
     }
 
-    void Move(Vector3 direction)
+    void Move(EDirections direction)
     {
-        
+        bool nodesMoved = false;
+        do
+        {
+            nodesMoved = false;
+            foreach (var cell in GridRef.Cells)
+            {
+                if(cell.IsVacant)
+                    continue;
+                switch(direction)
+                {
+                    case EDirections.Up:
+                        if(cell.AdjacentNodes.Top == null)
+                            break;
+                        if(cell.AdjacentNodes.Top.MoveNodeInto(cell) != 0)
+                            nodesMoved = true;                        
+                    break;
+                    case EDirections.Down:
+                        if(cell.AdjacentNodes.Bottom == null)
+                            break;
+                        if(cell.AdjacentNodes.Bottom.MoveNodeInto(cell) != 0)
+                            nodesMoved = true;                        
+                    break;
+                    case EDirections.Left:
+                        if(cell.AdjacentNodes.Left == null)
+                            break;
+                        if(cell.AdjacentNodes.Left.MoveNodeInto(cell) != 0)
+                            nodesMoved = true;
+                    break;
+                    case EDirections.Right:
+                        if(cell.AdjacentNodes.Right == null)
+                            break;
+                        if(cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
+                            nodesMoved = true;
+                    break;
+                }
+            }
+        }while(nodesMoved);
+        GridRef.SpawnNewNode();
     }
 }

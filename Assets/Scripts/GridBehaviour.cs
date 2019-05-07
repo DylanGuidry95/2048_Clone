@@ -27,6 +27,35 @@ public class GridBehaviour : MonoBehaviour
                 Cells.Add(space.GetComponent<CellBehaviour>());                
             }            
         }
+
+        foreach (var cell in Cells)
+        {            
+            foreach (var otherCell in Cells)
+            {
+                if(Vector3.Distance(cell.transform.position, otherCell.transform.position) <= 2)
+                {
+                    var cellPosition = cell.transform.position;
+                    var otherCellPosition = otherCell.transform.position;
+                    if(cellPosition.x == otherCellPosition.x && cellPosition.y < otherCellPosition.y)
+                    {
+                        cell.AdjacentNodes.Top = otherCell;
+                    }
+                    else if(cellPosition.x == otherCellPosition.x && cellPosition.y > otherCellPosition.y)
+                    {
+                        cell.AdjacentNodes.Bottom = otherCell;
+                    }
+                    else if(cellPosition.x > otherCellPosition.x && cellPosition.y == otherCellPosition.y)
+                    {
+                        cell.AdjacentNodes.Left = otherCell;
+                    }
+                    else if(cellPosition.x < otherCellPosition.x && cellPosition.y == otherCellPosition.y)
+                    {
+                        cell.AdjacentNodes.Right = otherCell;
+                    }
+                }
+            }
+        }
+
         Restart(0);
     }
 
@@ -42,12 +71,18 @@ public class GridBehaviour : MonoBehaviour
         if(placed >= 2)
             return;
         int placeOne = 0;         
+        SpawnNewNode();
+        Restart(placed + 1);
+    }    
+
+    public void SpawnNewNode()
+    {
+        int placeOne = 0;
         do
         {
             placeOne = Random.Range(0, Cells.Count);
         } while (Cells[placeOne].SpawnNode() == 0);
-        Restart(placed + 1);
-    }    
+    }
 
     private void Update() 
     {
@@ -64,10 +99,5 @@ public class GridBehaviour : MonoBehaviour
         {
             Gizmos.DrawCube(cells.gameObject.transform.position, new Vector3(1,1,1));
         }
-    }
-
-    public bool CheckBounds(Vector3 position)
-    {        
-        return true;
     }
 }

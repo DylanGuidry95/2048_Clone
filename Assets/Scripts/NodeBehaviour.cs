@@ -21,4 +21,10 @@ public class NodeBehaviour : MonoBehaviour
     {        
         return node.FaceValue == this.FaceValue;
     }
+
+    public void UpdateFaceValue(int value)
+    {
+        FaceValue = value;
+        ValueView.text = FaceValue.ToString();
+    }
 }

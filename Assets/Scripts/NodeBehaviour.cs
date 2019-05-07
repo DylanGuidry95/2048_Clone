@@ -10,6 +10,8 @@ public class NodeBehaviour : MonoBehaviour
     [SerializeField]
     private Text ValueView;
 
+    public float MovementSpeed;
+
     private void Awake() 
     {        
         FaceValue = StartingValue[Random.Range(0,2)];
@@ -17,14 +19,19 @@ public class NodeBehaviour : MonoBehaviour
         ValueView.text = FaceValue.ToString();
     }
 
-    bool CompareNode(NodeBehaviour node)
-    {        
-        return node.FaceValue == this.FaceValue;
-    }
-
     public void UpdateFaceValue(int value)
     {
         FaceValue = value;
         ValueView.text = FaceValue.ToString();
+    }
+
+    public void Move(Vector3 target)
+    {
+        var startPosition = transform.position;
+        while(Vector3.Distance(transform.position, target) > 0.1f)
+        {
+            transform.position = Vector3.Lerp(startPosition, target, 
+            MovementSpeed);        
+        }        
     }
 }

@@ -48,7 +48,7 @@ public class CellBehaviour : MonoBehaviour
    {
         if(Node.FaceValue == node.FaceValue)
         {
-            int NewValue = Node.FaceValue + node.FaceValue;
+            int NewValue = Node.FaceValue + node.FaceValue;            
             Destroy(Node.gameObject);
             Destroy(node.gameObject);
             var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
@@ -65,6 +65,7 @@ public class CellBehaviour : MonoBehaviour
         {
             Node = cell.Node;
             cell.Node = null;
+            //Node.Move(transform.position);
             Node.transform.position = this.transform.position;            
             return 1;
         }
@@ -74,7 +75,7 @@ public class CellBehaviour : MonoBehaviour
             return -1;
         }
         return 0;
-   }   
+   }
 
    public int SpawnNode()
    {

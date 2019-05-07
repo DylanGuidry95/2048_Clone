@@ -59,6 +59,11 @@ public class GridBehaviour : MonoBehaviour
         Restart(0);
     }
 
+    void GenerateCells()
+    {
+        
+    }
+
     void Restart(int placed)
     {   
         if(placed == 0)

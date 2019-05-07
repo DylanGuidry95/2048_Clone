@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FaceValue: 0
   ValueView: {fileID: 6148772556384906434}
+  MovementSpeed: 0.1
 --- !u!1 &7282208819472558315
 GameObject:
   m_ObjectHideFlags: 0

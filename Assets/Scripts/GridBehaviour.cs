@@ -69,21 +69,23 @@ public class GridBehaviour : MonoBehaviour
             }
         }    
         if(placed >= 2)
-            return;
-        int placeOne = 0;         
+            return;        
         SpawnNewNode();
         Restart(placed + 1);
     }    
 
-    public void SpawnNewNode()
+    public void SpawnNewNode(int numberSpawns = 1)
     {
         if(!HasEmptySpace())
             return;
-        int placeOne = 0;
-        do
+        for(int i = 0; i < numberSpawns; i++)
         {
-            placeOne = Random.Range(0, Cells.Count);
-        } while (Cells[placeOne].SpawnNode() == 0);
+            int placeOne = 0;
+            do
+            {
+                placeOne = Random.Range(0, Cells.Count);
+            } while (Cells[placeOne].SpawnNode() == 0);
+        }
     }
 
     private void Update() 

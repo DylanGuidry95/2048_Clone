@@ -51,7 +51,7 @@ public class CellBehaviour : MonoBehaviour
             int NewValue = Node.FaceValue + node.FaceValue;            
             Destroy(Node.gameObject);
             Destroy(node.gameObject);
-            var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+            var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position + new Vector3(0,0f,-0.1f), Quaternion.identity) as GameObject;
             newNode.GetComponent<NodeBehaviour>().UpdateFaceValue(NewValue);
             Node = newNode.GetComponent<NodeBehaviour>();            
             return 1;
@@ -64,9 +64,8 @@ public class CellBehaviour : MonoBehaviour
         if(IsVacant)
         {
             Node = cell.Node;
-            cell.Node = null;
-            //Node.Move(transform.position);
-            Node.transform.position = this.transform.position;            
+            cell.Node = null;            
+            Node.transform.position = this.transform.position + new Vector3(0,0,-0.1f);            
             return 1;
         }
         else if(TryMergeNodes(cell.Node) == 1)
@@ -81,7 +80,7 @@ public class CellBehaviour : MonoBehaviour
    {
         if(!IsVacant)
             return 0;
-        var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position, Quaternion.identity) as GameObject;
+        var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position+ new Vector3(0,0,-0.1f), Quaternion.identity) as GameObject;
         Node = newNode.GetComponent<NodeBehaviour>();
         return 1;
    }

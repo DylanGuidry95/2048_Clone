@@ -15,15 +15,21 @@ public class GridBehaviour : MonoBehaviour
 
     private void Awake() 
     {
+       GenerateCells();
+
+        Restart(0);
+    }
+
+    [ContextMenu("GenCells")]
+    void GenerateCells()
+    {
         Cells = new List<CellBehaviour>();
         for(int x = 0; x < (int)GridSize; x++)
         {
             for(int y = 0; y < (int)GridSize; y++)
-            {
-                var space = new GameObject();
-                space.transform.position = new Vector2(x,y) * 2;
-                space.name = (Cells.Count + 1).ToString();
-                space.AddComponent(typeof(CellBehaviour));
+            {                
+                var space = Instantiate(Resources.Load("EmptyCell", typeof(GameObject)), new Vector2(x, y) * 1.1f, Quaternion.identity) as GameObject;                
+                space.name = (Cells.Count + 1).ToString();                
                 Cells.Add(space.GetComponent<CellBehaviour>());                
             }            
         }
@@ -55,13 +61,6 @@ public class GridBehaviour : MonoBehaviour
                 }
             }
         }
-
-        Restart(0);
-    }
-
-    void GenerateCells()
-    {
-        
     }
 
     void Restart(int placed)

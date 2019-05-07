@@ -77,5 +77,5 @@ public class MovementBehaviour : MonoBehaviour
             }
         }while(nodesMoved);
         GridRef.SpawnNewNode();
-    }
+    }    
 }

@@ -390,10 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896600603e48b5644859716c78414f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Nodes: []
-  Spaces: []
-  NodePrefab: {fileID: 6148772556384906435, guid: 6f67aba9211c4c94cbef07a2a8c55630,
-    type: 3}
+  Cells: []
   GridSize: 3
 --- !u!4 &2015265670
 Transform:
@@ -421,3 +418,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d934fd3e4ead8084c97e60e3242ab685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GridRef: {fileID: 0}

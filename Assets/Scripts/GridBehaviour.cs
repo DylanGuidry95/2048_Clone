@@ -77,6 +77,8 @@ public class GridBehaviour : MonoBehaviour
 
     public void SpawnNewNode()
     {
+        if(!HasEmptySpace())
+            return;
         int placeOne = 0;
         do
         {
@@ -99,5 +101,15 @@ public class GridBehaviour : MonoBehaviour
         {
             Gizmos.DrawCube(cells.gameObject.transform.position, new Vector3(1,1,1));
         }
+    }    
+
+    private bool HasEmptySpace()
+    {
+        foreach (var cell in Cells)
+        {
+            if(cell.IsVacant)
+                return true;
+        }
+        return false;
     }
 }

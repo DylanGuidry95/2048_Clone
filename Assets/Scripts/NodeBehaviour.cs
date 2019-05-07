@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class NodeBehaviour : MonoBehaviour
 {    
     public int FaceValue;
-    readonly int[] StartingValue = new int[4] {2,4,8,16};
+    readonly int[] StartingValue = new int[2] {2,4};
     [SerializeField]
     private Text ValueView;
 
     private void Awake() 
     {        
-        FaceValue = StartingValue[Random.Range(0,4)];
+        FaceValue = StartingValue[Random.Range(0,2)];
         ValueView = GetComponentInChildren<Text>();
         ValueView.text = FaceValue.ToString();
     }

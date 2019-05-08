@@ -12,15 +12,22 @@ public class MovementBehaviour : MonoBehaviour
 
     public GridBehaviour GridRef;
 
+    public bool IsUpdating;
+
+    public float MovementSpeed;
+
     private void Awake()
     {
         GridRef = GetComponent<GridBehaviour>();
         if (Application.platform == RuntimePlatform.Android)
             this.enabled = false;
+        IsUpdating = false;
     }
 
     private void Update()
     {
+        if (IsUpdating)
+            return;
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             StartCoroutine(Move(EDirections.Down));
@@ -42,7 +49,8 @@ public class MovementBehaviour : MonoBehaviour
     protected IEnumerator Move(EDirections direction)
     {
         bool nodesMoved = false;
-        int numberMoves = 0;
+        IsUpdating = true;
+        bool WasMoved = false;
         do
         {
             nodesMoved = false;
@@ -60,7 +68,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(10, 0, 0));
-                            numberMoves++;
+                            WasMoved = true;
                         }
                         break;
                     case EDirections.Down:
@@ -71,7 +79,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(-10, 0, 0));
-                            numberMoves++;
+                            WasMoved = true;
                         }
                         break;
                     case EDirections.Left:
@@ -82,7 +90,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             GridRef.transform.Rotate(new Vector3(0, 10f, 0));
-                            numberMoves++;
+                            WasMoved = true;
                         }
                         break;
                     case EDirections.Right:
@@ -93,14 +101,15 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(0, -10f, 0));
-                            numberMoves++;                            
+                            WasMoved = true;
                         }
                         break;
                 }
-            }
-            yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(MovementSpeed);
+            }            
         } while (nodesMoved);
-        if (numberMoves > 0)
-            GridRef.SpawnNewNode(1);
+
+        GridRef.SpawnNewNode(1);
+        IsUpdating = false;
     }
 }

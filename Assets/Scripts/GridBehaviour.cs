@@ -16,8 +16,8 @@ public class GridBehaviour : MonoBehaviour
     private void Awake()
     {
         GenerateCells();
-
-        Restart(0);
+        Events.RestartGame.AddListener(Restart);
+        Restart();
     }
 
     void GenerateCells()
@@ -61,21 +61,16 @@ public class GridBehaviour : MonoBehaviour
                 }
             }
         }
-    }
+    }    
 
-    void Restart(int placed)
+    void Restart()
     {
-        if (placed == 0)
+        transform.rotation = Quaternion.identity;
+        foreach (var cell in Cells)
         {
-            foreach (var cell in Cells)
-            {
-                cell.ClearCell();
-            }
+            cell.ClearCell();
         }
-        if (placed >= 2)
-            return;
-        SpawnNewNode();
-        Restart(placed + 1);
+        SpawnNewNode(2);        
     }
 
     public void SpawnNewNode(int numberSpawns = 1)
@@ -95,7 +90,7 @@ public class GridBehaviour : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            Restart(0);
+            Restart();
     }
 
     private bool HasEmptySpace()

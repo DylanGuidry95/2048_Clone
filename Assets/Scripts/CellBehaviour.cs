@@ -116,6 +116,7 @@ public class CellBehaviour : MonoBehaviour
         if (IsVacant)
             return;
         Destroy(Node.gameObject);
+        Node = null;
     }
 
     public bool HasValidMove()

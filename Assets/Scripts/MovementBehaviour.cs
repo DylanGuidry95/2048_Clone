@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(GridBehaviour))]
 public class MovementBehaviour : MonoBehaviour
 {
-    enum EDirections
+    public enum EDirections
     {
         Left, Right, Up, Down
     }
@@ -15,6 +15,8 @@ public class MovementBehaviour : MonoBehaviour
     private void Awake()
     {
         GridRef = GetComponent<GridBehaviour>();
+        if (Application.platform == RuntimePlatform.Android)
+            this.enabled = false;
     }
 
     private void Update()
@@ -34,10 +36,10 @@ public class MovementBehaviour : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(EDirections.Right);
-        }
+        }    
     }
 
-    void Move(EDirections direction)
+    protected void Move(EDirections direction)
     {
         bool nodesMoved = false;
         do

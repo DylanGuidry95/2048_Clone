@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UIBehaviour : MonoBehaviour
 {
+    public GameObject GameOverScreen;
+
     private void Awake()
     {
         Events.NoValidMovesRemain.AddListener(DisplayGameLost);
@@ -11,6 +13,12 @@ public class UIBehaviour : MonoBehaviour
 
     void DisplayGameLost()
     {
-        Debug.Log("YOU LOST");
+        GameOverScreen.SetActive(true);
+    }
+
+    public void RestartClicked()
+    {
+        Events.RestartGame.Invoke();
+        GameOverScreen.SetActive(false);
     }
 }

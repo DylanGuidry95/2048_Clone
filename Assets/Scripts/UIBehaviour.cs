@@ -5,10 +5,12 @@ using UnityEngine;
 public class UIBehaviour : MonoBehaviour
 {
     public GameObject GameOverScreen;
+    public GameObject VictoryScreen;
 
     private void Awake()
     {
         Events.NoValidMovesRemain.AddListener(DisplayGameLost);
+        Events.Victory.AddListener(DisplayVictory);
     }    
 
     void DisplayGameLost()
@@ -20,5 +22,11 @@ public class UIBehaviour : MonoBehaviour
     {
         Events.RestartGame.Invoke();
         GameOverScreen.SetActive(false);
+        VictoryScreen.SetActive(false);
+    }
+
+    void DisplayVictory()
+    {
+        VictoryScreen.SetActive(true);
     }
 }

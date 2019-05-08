@@ -79,6 +79,8 @@ public class CellBehaviour : MonoBehaviour
             var newNode = Instantiate(Resources.Load("Node", typeof(GameObject)), transform.position + new Vector3(0, 0f, -0.1f), this.transform.rotation) as GameObject;
             newNode.GetComponent<NodeBehaviour>().UpdateFaceValue(NewValue);
             Node = newNode.GetComponent<NodeBehaviour>();
+            if (Node.FaceValue == 2048)
+                Events.Victory.Invoke();
             return 1;
         }
         return 0;

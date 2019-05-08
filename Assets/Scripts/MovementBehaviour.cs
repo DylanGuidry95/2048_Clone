@@ -23,25 +23,26 @@ public class MovementBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Move(EDirections.Down);
+            StartCoroutine(Move(EDirections.Down));
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Move(EDirections.Up);
+            StartCoroutine(Move(EDirections.Up));
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Move(EDirections.Left);
+            StartCoroutine(Move(EDirections.Left));
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Move(EDirections.Right);
+            StartCoroutine(Move(EDirections.Right));
         }    
     }
 
-    protected void Move(EDirections direction)
+    protected IEnumerator Move(EDirections direction)
     {
         bool nodesMoved = false;
+        int numberMoves = 0;
         do
         {
             nodesMoved = false;
@@ -59,6 +60,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(10, 0, 0));
+                            numberMoves++;
                         }
                         break;
                     case EDirections.Down:
@@ -69,6 +71,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(-10, 0, 0));
+                            numberMoves++;
                         }
                         break;
                     case EDirections.Left:
@@ -79,6 +82,7 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             GridRef.transform.Rotate(new Vector3(0, 10f, 0));
+                            numberMoves++;
                         }
                         break;
                     case EDirections.Right:
@@ -89,11 +93,14 @@ public class MovementBehaviour : MonoBehaviour
                             nodesMoved = true;
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(0, -10f, 0));
+                            numberMoves++;                            
                         }
                         break;
                 }
             }
+            yield return new WaitForSeconds(0.1f);
         } while (nodesMoved);
-        GridRef.SpawnNewNode();
+        if (numberMoves > 0)
+            GridRef.SpawnNewNode(1);
     }
 }

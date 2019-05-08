@@ -29,7 +29,8 @@ public class GridBehaviour : MonoBehaviour
             for(int y = 0; y < (int)GridSize; y++)
             {                
                 var space = Instantiate(Resources.Load("EmptyCell", typeof(GameObject)), new Vector2(x, y) * 1.1f, Quaternion.identity) as GameObject;                
-                space.name = (Cells.Count + 1).ToString();                
+                space.name = (Cells.Count + 1).ToString();
+                space.transform.parent = this.transform;
                 Cells.Add(space.GetComponent<CellBehaviour>());                
             }            
         }
@@ -96,18 +97,7 @@ public class GridBehaviour : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
             Restart(0);    
-    }
-
-    private void OnDrawGizmos() 
-    {
-        if(Cells.Count == 0)
-            return;
-        Gizmos.color = new Color(1,1,1,0.25f);
-        foreach (var cells in Cells)
-        {
-            Gizmos.DrawCube(cells.gameObject.transform.position, new Vector3(1,1,1));
-        }
-    }    
+    } 
 
     private bool HasEmptySpace()
     {

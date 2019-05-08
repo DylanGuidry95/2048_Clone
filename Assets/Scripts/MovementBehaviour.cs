@@ -53,26 +53,34 @@ public class MovementBehaviour : MonoBehaviour
                         if(cell.AdjacentNodes.Top == null)
                             break;
                         if(cell.AdjacentNodes.Top.MoveNodeInto(cell) != 0)
-                            nodesMoved = true;                        
+                            nodesMoved = true;
+                        transform.rotation = Quaternion.identity;
+                        transform.Rotate(new Vector3(10, 0, 0));
                     break;
                     case EDirections.Down:
                         if(cell.AdjacentNodes.Bottom == null)
                             break;
                         if(cell.AdjacentNodes.Bottom.MoveNodeInto(cell) != 0)
-                            nodesMoved = true;                        
-                    break;
+                            nodesMoved = true;
+                        transform.rotation = Quaternion.identity;
+                        transform.Rotate(new Vector3(-10, 0, 0));
+                        break;
                     case EDirections.Left:
                         if(cell.AdjacentNodes.Left == null)
                             break;
                         if(cell.AdjacentNodes.Left.MoveNodeInto(cell) != 0)
                             nodesMoved = true;
-                    break;
+                        transform.rotation = Quaternion.identity;
+                        GridRef.transform.Rotate(new Vector3(0, 10f, 0));
+                        break;
                     case EDirections.Right:
                         if(cell.AdjacentNodes.Right == null)
                             break;
                         if(cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
                             nodesMoved = true;
-                    break;
+                        transform.rotation = Quaternion.identity;
+                        transform.Rotate(new Vector3(0, -10f, 0));
+                        break;
                 }
             }
         }while(nodesMoved);

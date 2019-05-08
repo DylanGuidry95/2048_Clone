@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(GridBehaviour))]
 public class MovementBehaviour : MonoBehaviour
-{        
+{
     enum EDirections
     {
         Left, Right, Up, Down
@@ -12,27 +12,27 @@ public class MovementBehaviour : MonoBehaviour
 
     public GridBehaviour GridRef;
 
-    private void Awake() 
+    private void Awake()
     {
         GridRef = GetComponent<GridBehaviour>();
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {                           
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
             Move(EDirections.Down);
         }
-        else if(Input.GetKeyDown(KeyCode.UpArrow))
-        {            
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
             Move(EDirections.Up);
         }
-        else if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {            
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
             Move(EDirections.Left);
         }
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
-        {        
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
             Move(EDirections.Right);
         }
     }
@@ -45,45 +45,53 @@ public class MovementBehaviour : MonoBehaviour
             nodesMoved = false;
             foreach (var cell in GridRef.Cells)
             {
-                if(cell.IsVacant)
+                if (cell.IsVacant)
                     continue;
-                switch(direction)
+                switch (direction)
                 {
                     case EDirections.Up:
-                        if(cell.AdjacentNodes.Top == null)
+                        if (cell.AdjacentNodes.Top == null)
                             break;
-                        if(cell.AdjacentNodes.Top.MoveNodeInto(cell) != 0)
+                        if (cell.AdjacentNodes.Top.MoveNodeInto(cell) != 0)
+                        {
                             nodesMoved = true;
-                        transform.rotation = Quaternion.identity;
-                        transform.Rotate(new Vector3(10, 0, 0));
-                    break;
+                            transform.rotation = Quaternion.identity;
+                            transform.Rotate(new Vector3(10, 0, 0));
+                        }
+                        break;
                     case EDirections.Down:
-                        if(cell.AdjacentNodes.Bottom == null)
+                        if (cell.AdjacentNodes.Bottom == null)
                             break;
-                        if(cell.AdjacentNodes.Bottom.MoveNodeInto(cell) != 0)
+                        if (cell.AdjacentNodes.Bottom.MoveNodeInto(cell) != 0)
+                        {
                             nodesMoved = true;
-                        transform.rotation = Quaternion.identity;
-                        transform.Rotate(new Vector3(-10, 0, 0));
+                            transform.rotation = Quaternion.identity;
+                            transform.Rotate(new Vector3(-10, 0, 0));
+                        }
                         break;
                     case EDirections.Left:
-                        if(cell.AdjacentNodes.Left == null)
+                        if (cell.AdjacentNodes.Left == null)
                             break;
-                        if(cell.AdjacentNodes.Left.MoveNodeInto(cell) != 0)
+                        if (cell.AdjacentNodes.Left.MoveNodeInto(cell) != 0)
+                        {
                             nodesMoved = true;
-                        transform.rotation = Quaternion.identity;
-                        GridRef.transform.Rotate(new Vector3(0, 10f, 0));
+                            transform.rotation = Quaternion.identity;
+                            GridRef.transform.Rotate(new Vector3(0, 10f, 0));
+                        }
                         break;
                     case EDirections.Right:
-                        if(cell.AdjacentNodes.Right == null)
+                        if (cell.AdjacentNodes.Right == null)
                             break;
-                        if(cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
+                        if (cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
+                        {
                             nodesMoved = true;
-                        transform.rotation = Quaternion.identity;
-                        transform.Rotate(new Vector3(0, -10f, 0));
+                            transform.rotation = Quaternion.identity;
+                            transform.Rotate(new Vector3(0, -10f, 0));
+                        }
                         break;
                 }
             }
-        }while(nodesMoved);
+        } while (nodesMoved);
         GridRef.SpawnNewNode();
-    }    
+    }
 }

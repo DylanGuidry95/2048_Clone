@@ -10,6 +10,6 @@ public class CameraController : MonoBehaviour
     {
         GridRef = FindObjectOfType<GridBehaviour>();
         var gridCenter = GridRef.Cells[GridRef.Cells.Count - 1].transform.position / 2;
-        transform.position = gridCenter + new Vector3(0, 0, -(int)GridRef.GridSize);        
+        transform.position = gridCenter + new Vector3(0, 0, -(int)GridRef.GridSize);
     }
 }

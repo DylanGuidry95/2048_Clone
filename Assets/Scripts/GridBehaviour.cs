@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridBehaviour : MonoBehaviour
-{    
-    public List<CellBehaviour> Cells;    
+{
+    public List<CellBehaviour> Cells;
 
     public enum EDimensions
     {
@@ -13,49 +13,48 @@ public class GridBehaviour : MonoBehaviour
 
     public EDimensions GridSize;
 
-    private void Awake() 
+    private void Awake()
     {
-       GenerateCells();
+        GenerateCells();
 
         Restart(0);
     }
 
-    [ContextMenu("GenCells")]
     void GenerateCells()
     {
         Cells = new List<CellBehaviour>();
-        for(int x = 0; x < (int)GridSize; x++)
+        for (int x = 0; x < (int)GridSize; x++)
         {
-            for(int y = 0; y < (int)GridSize; y++)
-            {                
-                var space = Instantiate(Resources.Load("EmptyCell", typeof(GameObject)), new Vector2(x, y) * 1.1f, Quaternion.identity) as GameObject;                
+            for (int y = 0; y < (int)GridSize; y++)
+            {
+                var space = Instantiate(Resources.Load("EmptyCell", typeof(GameObject)), new Vector2(x, y) * 1.1f, Quaternion.identity) as GameObject;
                 space.name = (Cells.Count + 1).ToString();
                 space.transform.parent = this.transform;
-                Cells.Add(space.GetComponent<CellBehaviour>());                
-            }            
+                Cells.Add(space.GetComponent<CellBehaviour>());
+            }
         }
 
         foreach (var cell in Cells)
-        {            
+        {
             foreach (var otherCell in Cells)
             {
-                if(Vector3.Distance(cell.transform.position, otherCell.transform.position) <= 2)
+                if (Vector3.Distance(cell.transform.position, otherCell.transform.position) <= 2)
                 {
                     var cellPosition = cell.transform.position;
                     var otherCellPosition = otherCell.transform.position;
-                    if(cellPosition.x == otherCellPosition.x && cellPosition.y < otherCellPosition.y)
+                    if (cellPosition.x == otherCellPosition.x && cellPosition.y < otherCellPosition.y)
                     {
                         cell.AdjacentNodes.Top = otherCell;
                     }
-                    else if(cellPosition.x == otherCellPosition.x && cellPosition.y > otherCellPosition.y)
+                    else if (cellPosition.x == otherCellPosition.x && cellPosition.y > otherCellPosition.y)
                     {
                         cell.AdjacentNodes.Bottom = otherCell;
                     }
-                    else if(cellPosition.x > otherCellPosition.x && cellPosition.y == otherCellPosition.y)
+                    else if (cellPosition.x > otherCellPosition.x && cellPosition.y == otherCellPosition.y)
                     {
                         cell.AdjacentNodes.Left = otherCell;
                     }
-                    else if(cellPosition.x < otherCellPosition.x && cellPosition.y == otherCellPosition.y)
+                    else if (cellPosition.x < otherCellPosition.x && cellPosition.y == otherCellPosition.y)
                     {
                         cell.AdjacentNodes.Right = otherCell;
                     }
@@ -65,25 +64,25 @@ public class GridBehaviour : MonoBehaviour
     }
 
     void Restart(int placed)
-    {   
-        if(placed == 0)
+    {
+        if (placed == 0)
         {
             foreach (var cell in Cells)
-            {                
+            {
                 cell.ClearCell();
             }
-        }    
-        if(placed >= 2)
-            return;        
+        }
+        if (placed >= 2)
+            return;
         SpawnNewNode();
         Restart(placed + 1);
-    }    
+    }
 
     public void SpawnNewNode(int numberSpawns = 1)
     {
-        if(!HasEmptySpace())
+        if (!HasEmptySpace())
             return;
-        for(int i = 0; i < numberSpawns; i++)
+        for (int i = 0; i < numberSpawns; i++)
         {
             int placeOne = 0;
             do
@@ -93,19 +92,24 @@ public class GridBehaviour : MonoBehaviour
         }
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            Restart(0);    
-    } 
+        if (Input.GetKeyDown(KeyCode.Space))
+            Restart(0);
+    }
 
     private bool HasEmptySpace()
     {
+        bool hasValidMove = false;
         foreach (var cell in Cells)
-        {
-            if(cell.IsVacant)
+        {            
+            if (cell.IsVacant)
                 return true;
+            if (cell.HasValidMove())
+                hasValidMove = true;
         }
+        if (!hasValidMove)
+            Events.NoValidMovesRemain.Invoke();
         return false;
     }
 }

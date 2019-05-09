@@ -69,6 +69,7 @@ public class MovementBehaviour : MonoBehaviour
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(10, 0, 0));
                             WasMoved = true;
+                            yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
                     case EDirections.Down:
@@ -80,6 +81,7 @@ public class MovementBehaviour : MonoBehaviour
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(-10, 0, 0));
                             WasMoved = true;
+                            yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
                     case EDirections.Left:
@@ -91,6 +93,7 @@ public class MovementBehaviour : MonoBehaviour
                             transform.rotation = Quaternion.identity;
                             GridRef.transform.Rotate(new Vector3(0, 10f, 0));
                             WasMoved = true;
+                            yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
                     case EDirections.Right:
@@ -102,10 +105,10 @@ public class MovementBehaviour : MonoBehaviour
                             transform.rotation = Quaternion.identity;
                             transform.Rotate(new Vector3(0, -10f, 0));
                             WasMoved = true;
+                            yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
-                }
-                yield return new WaitForSeconds(MovementSpeed);
+                }                
             }            
         } while (nodesMoved);
 

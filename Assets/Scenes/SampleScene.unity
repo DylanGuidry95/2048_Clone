@@ -1326,7 +1326,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  GridSize: 4
+  GridSize: 6
 --- !u!4 &2015265670
 Transform:
   m_ObjectHideFlags: 0

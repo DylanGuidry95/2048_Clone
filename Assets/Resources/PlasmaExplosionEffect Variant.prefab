@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
       propertyPath: m_Name
-      value: PlasmaExplosionEffect
+      value: PlasmaExplosionEffect Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1000011128802252, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
       propertyPath: m_IsActive
@@ -59,6 +59,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198000010585806678, guid: 96730f8640590934eacb6f860058e7f9,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011730688910, guid: 96730f8640590934eacb6f860058e7f9, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -75,10 +80,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 198000012148200148, guid: 96730f8640590934eacb6f860058e7f9,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199000011072130232, guid: 96730f8640590934eacb6f860058e7f9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012704292194, guid: 96730f8640590934eacb6f860058e7f9,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012952508202, guid: 96730f8640590934eacb6f860058e7f9,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198000012752662270, guid: 96730f8640590934eacb6f860058e7f9,
+        type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96730f8640590934eacb6f860058e7f9, type: 3}

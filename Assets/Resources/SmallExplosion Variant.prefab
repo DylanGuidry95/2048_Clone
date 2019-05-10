@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
       propertyPath: m_Name
-      value: SmallExplosion
+      value: SmallExplosion Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
       propertyPath: m_IsActive
@@ -69,6 +69,16 @@ PrefabInstance:
       propertyPath: UVModule.flipV
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198656289721292014, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199514137936353666, guid: 64891a0eb28db934898420d80ca07cb3,
         type: 3}
       propertyPath: m_Flip.x
@@ -79,6 +89,26 @@ PrefabInstance:
       propertyPath: m_Flip.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 198207014375249716, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198207014375249716, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198698117513318312, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198698117513318312, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198263872644927810, guid: 64891a0eb28db934898420d80ca07cb3,
         type: 3}
       propertyPath: UVModule.flipU
@@ -87,6 +117,16 @@ PrefabInstance:
     - target: {fileID: 198263872644927810, guid: 64891a0eb28db934898420d80ca07cb3,
         type: 3}
       propertyPath: UVModule.flipV
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198263872644927810, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198263872644927810, guid: 64891a0eb28db934898420d80ca07cb3,
+        type: 3}
+      propertyPath: prewarm
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199132262764125350, guid: 64891a0eb28db934898420d80ca07cb3,

@@ -30,18 +30,22 @@ public class MovementBehaviour : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Down));
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Up));
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Left));
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Right));
         }    
     }
@@ -65,10 +69,8 @@ public class MovementBehaviour : MonoBehaviour
                             break;
                         if (cell.AdjacentNodes.Top.MoveNodeInto(cell) != 0)
                         {
-                            nodesMoved = true;
-                            transform.rotation = Quaternion.identity;
-                            transform.Rotate(new Vector3(10, 0, 0));
-                            WasMoved = true;
+                            nodesMoved = true;                            
+                            WasMoved = true;                            
                             yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
@@ -77,9 +79,7 @@ public class MovementBehaviour : MonoBehaviour
                             break;
                         if (cell.AdjacentNodes.Bottom.MoveNodeInto(cell) != 0)
                         {
-                            nodesMoved = true;
-                            transform.rotation = Quaternion.identity;
-                            transform.Rotate(new Vector3(-10, 0, 0));
+                            nodesMoved = true;                            
                             WasMoved = true;
                             yield return new WaitForSeconds(MovementSpeed);
                         }
@@ -89,9 +89,7 @@ public class MovementBehaviour : MonoBehaviour
                             break;
                         if (cell.AdjacentNodes.Left.MoveNodeInto(cell) != 0)
                         {
-                            nodesMoved = true;
-                            transform.rotation = Quaternion.identity;
-                            GridRef.transform.Rotate(new Vector3(0, 10f, 0));
+                            nodesMoved = true;                            
                             WasMoved = true;
                             yield return new WaitForSeconds(MovementSpeed);
                         }
@@ -102,8 +100,6 @@ public class MovementBehaviour : MonoBehaviour
                         if (cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
                         {
                             nodesMoved = true;
-                            transform.rotation = Quaternion.identity;
-                            transform.Rotate(new Vector3(0, -10f, 0));
                             WasMoved = true;
                             yield return new WaitForSeconds(MovementSpeed);
                         }

@@ -15,5 +15,6 @@ public class ScoreBehaviour : MonoBehaviour
     void UpdateScore(int value)
     {
         CurrentScore += value;
+        Events.ScoreDisplay.Invoke(CurrentScore);
     }
 }

@@ -6,11 +6,12 @@ public class UIBehaviour : MonoBehaviour
 {
     public GameObject GameOverScreen;
     public GameObject VictoryScreen;
-
+    public UnityEngine.UI.Text ScoreDisplay;
     private void Awake()
     {
         Events.NoValidMovesRemain.AddListener(DisplayGameLost);
         Events.Victory.AddListener(DisplayVictory);
+        Events.ScoreDisplay.AddListener(DisplayScore);
     }    
 
     void DisplayGameLost()
@@ -28,5 +29,10 @@ public class UIBehaviour : MonoBehaviour
     void DisplayVictory()
     {
         VictoryScreen.SetActive(true);
+    }
+
+    void DisplayScore(int val)
+    {
+        ScoreDisplay.text = val.ToString();
     }
 }

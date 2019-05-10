@@ -17,7 +17,7 @@ public class GridBehaviour : MonoBehaviour
     {
         GenerateCells();
         Events.RestartGame.AddListener(Restart);
-        Events.MergedCells.AddListener(Shake);
+        //Events.MergedCells.AddListener(Shake);
         Restart();
     }
 
@@ -107,30 +107,5 @@ public class GridBehaviour : MonoBehaviour
         if (!hasValidMove)
             Events.NoValidMovesRemain.Invoke();
         return false;
-    }
-
-    bool IsShaking = false;
-
-    void Shake(Vector3 none)
-    {
-        if(!IsShaking)
-            StartCoroutine(GridShake());
-    }
-
-    IEnumerator GridShake()
-    {
-        IsShaking = true;
-        var initialPosition = transform.position;        
-        for(int i = 0; i < 2; i++)
-        {
-            transform.position += new Vector3(0.1f, 0.1f, 0);
-            yield return new WaitForSeconds(0.01f);
-            transform.position = initialPosition;
-            yield return new WaitForSeconds(0.01f);
-            transform.position += new Vector3(-0.1f, -0.1f, 0);
-            yield return new WaitForSeconds(0.1f);
-        }
-        transform.position = initialPosition;
-        IsShaking = false;
     }
 }

@@ -154,14 +154,14 @@ MonoBehaviour:
   ParticlePrefabs:
   - {fileID: 7776395286257767058, guid: 2d7dd853b83ebf740a05c6fc9df05499, type: 3}
   - {fileID: 4510907269629682973, guid: b1377fa1673ce4f4d9551d89e289d218, type: 3}
+  - {fileID: 6835112310197806755, guid: 44a16e360089b0b4fab5fa4bbf390b87, type: 3}
   - {fileID: 7776395286257767058, guid: 2d7dd853b83ebf740a05c6fc9df05499, type: 3}
   - {fileID: 4510907269629682973, guid: b1377fa1673ce4f4d9551d89e289d218, type: 3}
+  - {fileID: 6835112310197806755, guid: 44a16e360089b0b4fab5fa4bbf390b87, type: 3}
   - {fileID: 7776395286257767058, guid: 2d7dd853b83ebf740a05c6fc9df05499, type: 3}
   - {fileID: 4510907269629682973, guid: b1377fa1673ce4f4d9551d89e289d218, type: 3}
+  - {fileID: 6835112310197806755, guid: 44a16e360089b0b4fab5fa4bbf390b87, type: 3}
   - {fileID: 7776395286257767058, guid: 2d7dd853b83ebf740a05c6fc9df05499, type: 3}
-  - {fileID: 4510907269629682973, guid: b1377fa1673ce4f4d9551d89e289d218, type: 3}
-  - {fileID: 7776395286257767058, guid: 2d7dd853b83ebf740a05c6fc9df05499, type: 3}
-  - {fileID: 4510907269629682973, guid: b1377fa1673ce4f4d9551d89e289d218, type: 3}
 --- !u!4 &1250093
 Transform:
   m_ObjectHideFlags: 0

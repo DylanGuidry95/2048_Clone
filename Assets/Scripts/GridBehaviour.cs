@@ -11,7 +11,7 @@ public class GridBehaviour : MonoBehaviour
         Two_By_Two = 2, Three_by_Three = 3, Four_by_Four = 4, Five_by_Five = 5, Six_by_Six = 6
     }
 
-    public EDimensions GridSize;
+    public EDimensions GridSize;   
 
     private void Awake()
     {

@@ -35,13 +35,13 @@ public class CellBehaviour : MonoBehaviour
         {
             switch (index)
             {
-                case 1:
+                case 0:
                     return Top;
-                case 2:
+                case 1:
                     return Bottom;
-                case 3:
+                case 2:
                     return Left;
-                case 4:
+                case 3:
                     return Right;
             }
             return null;

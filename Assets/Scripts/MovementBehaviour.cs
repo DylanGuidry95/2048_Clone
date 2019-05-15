@@ -7,7 +7,7 @@ public class MovementBehaviour : MonoBehaviour
 {
     public enum EDirections
     {
-        Left, Right, Up, Down
+        Left = 2, Right = 3, Up = 0, Down = 1
     }
 
     public GridBehaviour GridRef;
@@ -30,22 +30,18 @@ public class MovementBehaviour : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Down));
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Events.ScoreUpdate.Invoke(1);
+        {            
             StartCoroutine(Move(EDirections.Up));
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Events.ScoreUpdate.Invoke(1);
+        {            
             StartCoroutine(Move(EDirections.Left));
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Right));
         }
     }
@@ -100,15 +96,18 @@ public class MovementBehaviour : MonoBehaviour
                         if (cell.AdjacentNodes.Right.MoveNodeInto(cell) != 0)
                         {
                             nodesMoved = true;
-                            WasMoved = true;
+                            WasMoved = true;                            
                             yield return new WaitForSeconds(MovementSpeed);
                         }
                         break;
                 }                
             }            
         } while (nodesMoved);
-        if(WasMoved)
+        if (WasMoved)
+        {
             GridRef.SpawnNewNode(1);
+            Events.ScoreUpdate.Invoke(1);
+        }
         IsUpdating = false;
     }
 }

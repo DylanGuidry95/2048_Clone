@@ -7,11 +7,7 @@ public class AndroidMovementBehaviour : MovementBehaviour
     private void Awake()
     {
         GridRef = GetComponent<GridBehaviour>();
-        if (Application.platform != RuntimePlatform.Android)
-        {
-            //this.enabled = false;
-            Input.simulateMouseWithTouches = true;
-        }
+        Input.simulateMouseWithTouches = true;
     }
 
     bool IsSwipping;
@@ -31,16 +27,16 @@ public class AndroidMovementBehaviour : MovementBehaviour
             if(Mathf.Abs(SwipeDirection.x) > Mathf.Abs(SwipeDirection.y))
             {
                 if (SwipeDirection.x > 0)
-                    Move(EDirections.Right);
+                    StartCoroutine(Move(EDirections.Right));
                 else
-                    Move(EDirections.Left);
+                    StartCoroutine(Move(EDirections.Left));
             }
             else
             {
                 if (SwipeDirection.y > 0)
-                    Move(EDirections.Up);
+                    StartCoroutine(Move(EDirections.Up));
                 else
-                    Move(EDirections.Down);
+                    StartCoroutine(Move(EDirections.Down));
             }
         }
     }

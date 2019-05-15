@@ -47,7 +47,7 @@ public class MovementBehaviour : MonoBehaviour
         {
             Events.ScoreUpdate.Invoke(1);
             StartCoroutine(Move(EDirections.Right));
-        }    
+        }
     }
 
     protected IEnumerator Move(EDirections direction)
@@ -107,8 +107,8 @@ public class MovementBehaviour : MonoBehaviour
                 }                
             }            
         } while (nodesMoved);
-
-        GridRef.SpawnNewNode(1);
+        if(WasMoved)
+            GridRef.SpawnNewNode(1);
         IsUpdating = false;
     }
 }

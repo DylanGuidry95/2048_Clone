@@ -93,6 +93,8 @@ public class CellBehaviour : MonoBehaviour
         {
             Node = cell.Node;
             cell.Node = null;
+            var dir = Node.transform.position - this.transform.position;
+            Node.transform.Translate(dir * Time.deltaTime * 0.01f);
             Node.transform.position = this.transform.position + new Vector3(0, 0, -0.1f);
             Node.transform.rotation = this.transform.rotation;
             return 1;

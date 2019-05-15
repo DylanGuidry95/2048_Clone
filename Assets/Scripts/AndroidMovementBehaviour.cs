@@ -31,16 +31,16 @@ public class AndroidMovementBehaviour : MovementBehaviour
             if(Mathf.Abs(SwipeDirection.x) > Mathf.Abs(SwipeDirection.y))
             {
                 if (SwipeDirection.x > 0)
-                    StartCoroutine(Move(EDirections.Right));
+                    Move(EDirections.Right);
                 else
-                    StartCoroutine(Move(EDirections.Left));
+                    Move(EDirections.Left);
             }
             else
             {
                 if (SwipeDirection.y > 0)
-                    StartCoroutine(Move(EDirections.Up));
+                    Move(EDirections.Up);
                 else
-                    StartCoroutine(Move(EDirections.Down));
+                    Move(EDirections.Down);
             }
         }
     }

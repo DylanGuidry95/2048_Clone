@@ -42,13 +42,13 @@ public class CustomPlane : MonoBehaviour
 
         meshRef.triangles = trianglePoints.ToArray();
 
-        var normals = new List<Vector3>();
-        for(int i = 0; i < points.Count; i++)
-        {
-            normals.Add(transform.up);
-        }
+        //var normals = new List<Vector3>();
+        //for(int i = 0; i < points.Count; i++)
+        //{
+        //    normals.Add(transform.up);
+        //}
 
-        meshRef.normals = normals.ToArray();
+        //meshRef.normals = normals.ToArray();
 
         var uvs = new List<Vector2>();
 
